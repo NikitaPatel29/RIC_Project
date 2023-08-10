@@ -11,7 +11,7 @@ resources:
 variables:
 - name: DOCKER_BUILDKIT
   value: 1
-  tag: '$(Build.BuildId)'
+= tag: '$(Build.BuildId)'
 
 stages:
 - stage: Build
