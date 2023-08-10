@@ -17,8 +17,8 @@ jobs:
       pip install awscli --upgrade --user
       
       # Configure AWS CLI with your credentials
-      aws configure set aws_access_key_id ASIATUYJP7SUCREEJO5S
-      aws configure set aws_secret_access_key RdQNJNdgG9DU5/dvSZiJNZ30akJL2o/QS+lrTwdv
+      aws configure set aws_access_key_id AKIA4FI7OAZSYU3LBBYP
+      aws configure set aws_secret_access_key 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
       aws configure set default.region us-east-1
       
       # Create EC2 instance
