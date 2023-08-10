@@ -22,6 +22,20 @@ stages:
     steps:
     - task: Docker@2
       displayName: Build an image
+      name: Provision a set of instances
+      ec2:
+      aws_access_key: ASIATUYJP7SUABA4BXXK
+      aws_secret_key: OFnIbNx0P9DpjXyAyu7twhK2jFbekRfSFFCMAxiL
+      key_name: NCISOC 
+      instance_type: t2.micro image: ami-Ca63f96e85105c6d3
+      region: us-east-2
+      wait: true
+      exact count: 1
+      count_tag:
+      Name: Demo
+      instance_tags:
+      Name: Demo
+      register: ec2
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
