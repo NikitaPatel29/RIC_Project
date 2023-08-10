@@ -20,12 +20,11 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        env:
-          DOCKER_BUILDKIT: 1
+      - task: Docker@2
+    inputs:
+      command: 'build'
+      dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+    env:
+      DOCKER_BUILDKIT: 1
         tags: |
           $(tag)
