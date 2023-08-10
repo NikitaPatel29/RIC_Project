@@ -9,8 +9,6 @@ resources:
 - repo: self
 
 variables:
-- name: DOCKER_BUILDKIT
-  value: 1
   tag: '$(Build.BuildId)'
 
 stages:
@@ -27,5 +25,7 @@ stages:
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        env:
+          DOCKER_BUILDKIT: 1
         tags: |
           $(tag)
