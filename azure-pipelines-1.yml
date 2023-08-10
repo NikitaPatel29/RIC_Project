@@ -1,23 +1,29 @@
--hosts: localhost
-connection: local
-gather_facts: False
+trigger:
+- main
 
-tasks:
-  #this task creates ec2 instances that are all named demo and are copies of the image specified
-  -
-    name: Provision a set of instances
-    ec2:
-      aws_access_key: ASIATUYJP7SUI7D6VW6V
-      aws_secret_key: uV35nuF5cPE0UkJrmcgj/xR41oHc4Ql22lxgp6Cy
-      session_token: IQoJb3JpZ2luX2VjEBwaCXVzLWVhc3QtMSJGMEQCIAGv51lcOw7RIYI/xDLRumUgLnxttvPXh6G2Rb1Td5pzAiBVsLYLwGFZkxw/HuR+Du91CJKFkJya+2/I56uyp1Cr4CqUBAjF//////////8BEAMaDDI1MDczODYzNzk5MiIM6VyBx5xEnl3eUyE/KugDhTT8/4tNfCkMFhWvtHdIs1K5ty7F8t3AQ0sUhGxIOt8qFYPUMYxyPRhgzDnuSOoWS5RfgdGTrOveoaFN+tIHcRx/qicuwE0/Zs/QMUGlD2TmGhYaRgb9/L4WSc2FWDxMgRj8uPTJzwx1QGHuCXK3UCjyYowgqkxh5GqExlMjatyu8chEc3nP1x1wC9tq7LNTzgUz7TQoTx9vvtYPPgQcHLuS2R3fvrctLBKbIBb5d1NTM8NJU7/BeTZSy/ZhW2Q/zqflXOwhHxyGcDxfCW/szR4mBUR8osHpe10XtrW0nWc/SmD+9Ltir49b13egKwFAc1n/IG7jaGWbmlgfkBfK6egjtue5jw+WAM0AgtpWir6ItIwA509agBJIAlEEj243ambIbjAI/WmFLLRyT3QJhH3MeVr4hBkMIC3cFzb3qBABuSpoyJgMYNIvszCFQedLpZ4q/uw47SQvytAcshv8Wz5mpFjOdUH3DWCw99y2nvN/CjW9wqdexrrz22+LkNXNjpsWXV8Z+kOvf5lzT6J7MwHfkzjVOEBsUz8g1bfJso+xf7t2YTXqtBINOMeSmdTvVGTOrCWccQ2URACj0hq/XXEHYoEuVgP5bIMWCJngQWM1I/P8YHFfsvk+WpJqbrM0wgUuiiKIds8wqoDVpgY6pwFOKyBsEmd4LKxvydor5wzWsE5KVHmhYyyyZoBjlS3Z63z6rrTb+VhTbfe7ufRfJSJ6ohuDwzPgA60BR50/+z8pOrw1UoMQ5UyApgBrL6k9n4FTeZuMYe1IhltBHlwRhClxvNv/1w2xClqPOkljYaQHkVrn4N15DhsZ/m4MWYUCqvp/R4dN65uNFkceZjfvqwUxbsTNJqqHVzyBbhL0Br/la6xwPmJpDQ==
-      key_name: 250738637992_MSCCLOUD 
-      instance_type: t2.micro 
-      image: ami-Ca63f96e85105c6d3
-      region: us-east-1
-      wait: true
-      exact count: 1
-      count_tag:
-        Name: Demo
-      instance_tags:
-        Name: Demo
-    register: ec2
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+- job: CreateEC2Instance
+  displayName: Create EC2 Instance
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      addToPath: true
+  - script: |
+      # Install AWS CLI
+      pip install awscli --upgrade --user
+      
+      # Configure AWS CLI with your credentials
+      aws configure set aws_access_key_id ASIATUYJP7SUEFEM4DW7
+      aws configure set aws_secret_access_key 3dEISmlXSDLDo7DwsxnJ8J+hrzzRDuu/ick3LixG
+      aws configure set default.region us-east-1
+      
+      # Create EC2 instance
+      instance_id=$(aws ec2 run-instances --image-id ami-Ca63f96e85105c6d3 --instance-type t2.micro --key-name NCISOC --query 'Instances[0].InstanceId' --output text)
+      
+      # Wait for instance to be running
+      aws ec2 wait instance-running --instance-ids $instance_id
+    displayName: Create EC2 Instance
