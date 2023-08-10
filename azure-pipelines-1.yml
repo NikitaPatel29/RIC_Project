@@ -11,7 +11,7 @@ resources:
 variables:
   tag: '$(Build.BuildId)'
 
-tasks:
+task:
   #this task creates ec2 instances that are all named demo and are copies of the image specified
   -
     name: Provision a set of instances
