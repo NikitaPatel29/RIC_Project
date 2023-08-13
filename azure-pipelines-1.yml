@@ -17,12 +17,12 @@ jobs:
       pip install awscli --upgrade --user
       
       # Configure AWS CLI with your credentials
-      aws configure set aws_access_key_id AKIA4FI7OAZSYU3LBBYP
-      aws configure set aws_secret_access_key tZ0lau24zkCEhDTHvN5de+lx2OoV3xBsT+XHK6vE
+      aws configure set aws_access_key_id ASIATUYJP7SUMMHHWVNN
+      aws configure set aws_secret_access_key RoWq6E7shXGrTjp7/FJsCsOAZZVeizgK+i6kjrT/
       aws configure set default.region us-east-1
       
       # Create EC2 instance
-      instance_id=$(aws ec2 run-instances --image-id ami-08a52ddb321b32a8c --instance-type t2.micro --key-name RIC-21224811 --query 'Instances[0].InstanceId' --output text)
+      instance_id=$(aws ec2 run-instances --image-id ami-08a52ddb321b32a8c --instance-type t2.micro --key-name Nikita-21224811 --query 'Instances[0].InstanceId' --output text)
       
       # Wait for instance to be running
       aws ec2 wait instance-running --instance-ids $instance_id
