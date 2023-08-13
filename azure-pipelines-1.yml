@@ -22,7 +22,7 @@ jobs:
       aws configure set default.region us-east-1
       
       # Create EC2 instance
-      instance_id=$(aws ec2 run-instances --image-id ami-053b0d53c279acc90 --instance-type t2.micro --key-name 21224811_RIC --query 'Instances[0].InstanceId' --output text)
+      instance_id=$(aws ec2 run-instances --image-id ami-08a52ddb321b32a8c --instance-type t2.micro --key-name RIC-21224811 --query 'Instances[0].InstanceId' --output text)
       
       # Wait for instance to be running
       aws ec2 wait instance-running --instance-ids $instance_id
